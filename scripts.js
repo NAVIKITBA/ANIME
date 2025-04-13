@@ -260,10 +260,10 @@ function submitSurvey() {
         fetch('https://sheetdb.io/api/v1/1ojx9z1slwmk1', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ data }) // Wrap data in a "data" object as required by SheetDB
+            body: JSON.stringify({ data }) 
         }).then(response => {
             if (response.ok) {
-                // Redirect to Thank You Page
+        
                 document.body.innerHTML = `
                     <div style="text-align: center; margin-top: 50px;">
                         <h1>Thank You for Completing the Survey!</h1>
@@ -292,7 +292,6 @@ function submitSurvey() {
 }
 
 function showMBTIPopup(personalityType, description) {
-    // Create the popup container
     const popup = document.createElement('div');
     popup.id = 'mbtiPopup';
     popup.style.position = 'fixed';
@@ -311,7 +310,7 @@ function showMBTIPopup(personalityType, description) {
     popup.style.opacity = '0';
     popup.style.animation = 'fadeIn 0.5s forwards'; // Fade-in animation
 
-    // Add content to the popup
+    
     popup.innerHTML = `
         <h2>Your MBTI Personality</h2>
         <p><strong>${personalityType}</strong></p>
@@ -319,19 +318,17 @@ function showMBTIPopup(personalityType, description) {
         <button id="closePopupBtn" style="margin-top: 20px; padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">Close</button>
     `;
 
-    // Append the popup to the body
+    
     document.body.appendChild(popup);
-
-    // Add event listener to close the popup
     const closePopupBtn = document.getElementById('closePopupBtn');
     closePopupBtn.addEventListener('click', () => {
         popup.style.animation = 'fadeOut 0.5s forwards'; // Fade-out animation
         setTimeout(() => {
             popup.remove();
-        }, 500); // Wait for the fade-out animation to complete
+        }, 500); 
     });
 
-    // Add keyframe animations to the document
+    
     const style = document.createElement('style');
     style.innerHTML = `
         @keyframes fadeIn {
@@ -351,12 +348,12 @@ function showMBTIPopup(personalityType, description) {
 function displaySelectedGenres(selectedGenres) {
     const genreNamesContainer = document.getElementById('selectedGenreNames');
     if (genreNamesContainer) {
-        genreNamesContainer.innerHTML = ''; // Clear previous names
+        genreNamesContainer.innerHTML = ''; 
         selectedGenres.forEach(genre => {
             const genreName = document.createElement('p');
-            genreName.textContent = genre; // Display the genre name directly
-            genreName.style.margin = '10px 0'; // Add spacing between genre names
-            genreName.style.textAlign = 'center'; // Center-align the genre name
+            genreName.textContent = genre; 
+            genreName.style.margin = '10px 0'; 
+            genreName.style.textAlign = 'center'; 
             genreNamesContainer.appendChild(genreName);
         });
 
@@ -410,17 +407,17 @@ function goToNextPage() {
         return;
     }
 
-    // Hide the genre selection section
+    
     document.getElementById('genreSelection').style.display = 'none';
 
     // Show the survey questions section
     document.getElementById('survey-questions').style.display = 'block';
 
-    // Hide all genre forms initially
+    
     const genreForms = document.querySelectorAll('form[id$="-Genre"]');
     genreForms.forEach(form => form.style.display = 'none');
 
-    // Show forms for the selected genres
+    
     selectedGenres.forEach(genre => {
         const genreForm = document.getElementById(`${genre}-Genre`);
         if (genreForm) {
@@ -429,7 +426,7 @@ function goToNextPage() {
             // Display the genre name in the questions part
             const genreTitle = genreForm.querySelector('.genre-title');
             if (genreTitle) {
-                genreTitle.textContent = `Questions for ${genre}`; // Set the genre name dynamically
+                genreTitle.textContent = `Questions for ${genre}`; 
             } else {
                 console.warn(`Genre title element not found for genre: ${genre}`);
             }
@@ -441,7 +438,7 @@ function goToNextPage() {
     // Display the names of the selected genres
     displaySelectedGenres(selectedGenres);
 
-    // Explicitly ensure Sci-Fi genre is handled correctly
+    
     if (selectedGenres.includes('Sci-Fi')) {
         const sciFiForm = document.getElementById('SciFi-Genre');
         if (sciFiForm) {
@@ -480,7 +477,7 @@ function styleAnswerQuestionsSection() {
     }
 }
 
-// Apply consistent styling on page load
+
 document.addEventListener('DOMContentLoaded', () => {
     const checkboxes = document.querySelectorAll('input[name="genre"]');
     checkboxes.forEach(checkbox => {
@@ -507,11 +504,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Hide all genre forms initially
+        
         const genreForms = document.querySelectorAll('.genre-form');
         genreForms.forEach(form => form.style.display = 'none');
 
-        // Show forms for selected genres
+        
         selectedGenres.forEach(genre => {
             const genreForm = document.getElementById(`${genre}-Genre`);
             if (genreForm) {
@@ -525,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Display the names of the selected genres with their corresponding forms
+        
         const genreNamesContainer = document.getElementById('selectedGenreNames');
         if (genreNamesContainer) {
             genreNamesContainer.innerHTML = ''; // Clear previous names
@@ -591,7 +588,7 @@ function calculateMBTIPersonality() {
         "INFP": "INFP - The Idealist: Empathetic, idealistic, and introspective. You seek deep meaning and personal growth."
     };
 
-    // Return the personality and its description
+    
     return {
         personalityType: personality,
         description: personalityDescriptions[personality] || "Personality description not found."
@@ -599,4 +596,4 @@ function calculateMBTIPersonality() {
 }
 const result = calculateMBTIPersonality();
 console.log(result.personalityType); // Output: ESTJ, ENFP, etc.
-console.log(result.description); // Output: The corresponding personality description
+console.log(result.description); // 
